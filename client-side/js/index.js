@@ -13,7 +13,7 @@ async function fetchData(){
                             </td>
                             <td><input type="text" name="name" disabled=true placeholder="" value=${employee.name} id="name-${employee.ID}"></td>
                             <td><input type="text" name="designation" disabled=true placeholder="" value=${employee.designation} id="designation-${employee.ID}"></td>
-                            <td><input type="text" name="salary" disabled=true placeholder=" " value=${employee.salary} id="salary-${employee.ID}"></td>
+                            <td><input type="text" name="salary" disabled=true placeholder=" " value=₹${employee.salary} id="salary-${employee.ID}"></td>
                             <td><input type="text" name="experience" disabled=true placeholder="" value=${employee.experience} id="experience-${employee.ID}">
                             </td>
                             <td><div class="bonus" id="bonous-salary-${employee.ID}"> </div></td>
@@ -47,18 +47,18 @@ async function fetchData(){
         }
          else if(employee.experience==1){
             salary=parseInt(employee.salary)+(parseInt(employee.salary)*0.1)
-            document.getElementById(`bonous-salary-${employee.ID}`).textContent=salary
+            document.getElementById(`bonous-salary-${employee.ID}`).textContent=`₹${salary}`
 
         }
         else if(employee.experience==2){
             salary=parseInt(employee.salary)+(parseInt(employee.salary)*0.15)
-            document.getElementById(`bonous-salary-${employee.ID}`).textContent=salary
+            document.getElementById(`bonous-salary-${employee.ID}`).textContent=`₹${salary}`
 
 
         }
         else{
             salary=parseInt(employee.salary)+(parseInt(employee.salary)*0.2)
-            document.getElementById(`bonous-salary-${employee.ID}`).textContent=salary
+            document.getElementById(`bonous-salary-${employee.ID}`).textContent=`₹${salary}`
 
 
         }
@@ -95,7 +95,7 @@ document.getElementById("search").addEventListener("keyup",async(e)=>{
                             </td>
                             <td><input type="text" name="name" disabled=true placeholder="" value=${employee.name} id="name-${employee.ID}"></td>
                             <td><input type="text" name="designation" disabled=true placeholder="" value=${employee.designation} id="designation-${employee.ID}"></td>
-                            <td><input type="text" name="salary" disabled=true placeholder=" " value=${employee.salary} id="salary-${employee.ID}"></td>
+                            <td><input type="text" name="salary" disabled=true placeholder=" " value=₹${employee.salary} id="salary-${employee.ID}"></td>
                             <td><input type="text" name="experience" disabled=true placeholder="" value=${employee.experience} id="experience-${employee.ID}">
                             </td>
                              <td><div class="bonus" id="bonous-salary-${employee.ID}"> </div></td>
@@ -111,30 +111,34 @@ document.getElementById("search").addEventListener("keyup",async(e)=>{
         document.getElementById("main").innerHTML=str
 
         let salary=0;
-        data.map((employee)=>{
+        search.map((employee)=>{
             // console.log(employee.experience);
             if(employee.experience==0){
-                document.getElementById(`bonous-salary-${employee.ID}`).textContent="Hel"
+            document.getElementById(`bonous-salary-${employee.ID}`).textContent="INELIGIBLE"
+            document.getElementById(`bonous-salary-${employee.ID}`).style.color="red"
+            document.getElementById(`bonous-salary-${employee.ID}`).style.fontSize=12+"px"
+            document.getElementById(`bonous-salary-${employee.ID}`).style.fontWeight="bold"
+            
+              
             }
              else if(employee.experience==1){
                 salary=parseInt(employee.salary)+(parseInt(employee.salary)*0.1)
+            document.getElementById(`bonous-salary-${employee.ID}`).textContent=`₹${salary}`
+
             }
             else if(employee.experience==2){
                 salary=parseInt(employee.salary)+(parseInt(employee.salary)*0.15)
+            document.getElementById(`bonous-salary-${employee.ID}`).textContent=`₹${salary}`
+
     
             }
             else{
                 salary=parseInt(employee.salary)+(parseInt(employee.salary)*0.2)
-    
+                document.getElementById(`bonous-salary-${employee.ID}`).textContent=`₹${salary}`
+
             }
             console.log(salary);
             console.log(employee.salary);
-            
-            document.getElementById(`bonous-salary-${employee.ID}`).textContent=salary
-    
-            
-            
-    
         });
     }
    
@@ -180,7 +184,7 @@ async function handleSave(id){
 
 async function handleDelete(id){
     // console.log(id);
-    const res = await fetch("http://localhost:3000/delete",{
+    if( confirm("Are you sure you want to delete this employee?")){ const res = await fetch("http://localhost:3000/delete",{
         method:"delete",
         "Content-Type":"text/plain",
         body:id
@@ -188,7 +192,8 @@ async function handleDelete(id){
     const message = await res.text()
     // console.log(message);
     res.status==200?alert(message):alert(message);
-    fetchData() 
+    fetchData() }
+   
     
 }
 
