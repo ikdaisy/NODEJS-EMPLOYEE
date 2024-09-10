@@ -36,6 +36,11 @@ const app=http.createServer(async(req,res)=>{
         res.end(fs.readFileSync("../client-side/js/index.js"));
 
     }
+    else if(path.pathname=="/js/add.js"){
+        res.writeHead(200,{"Content-Type":"text/js"});
+        res.end(fs.readFileSync("../client-side/js/add.js"));
+
+    }
     else if(path.pathname=="/add"){
         res.writeHead(200,{"Content-Type":"text/html"});
         res.end(fs.readFileSync("../client-side/pages/add.html"));
@@ -61,9 +66,12 @@ const app=http.createServer(async(req,res)=>{
                 const formData=queryString.parse(body)
                 console.log(formData);
                 // console.log(formData.ID);
+
+               
                 const existingData=await collection.findOne({ID:formData.ID})
                 if(existingData){
-                    console.log("Data with ID already exists");
+                    // console.log("Data with ID already exists");
+                   
                    
                 }
                 else{
@@ -79,7 +87,7 @@ const app=http.createServer(async(req,res)=>{
                  
             }
         })
-        // redirect the page into homepage after submitting
+        // redirect the page into homepage after submitting 
         res.writeHead(200,{"Content-Type":"text/html"});
         res.end(fs.readFileSync("../client-side/index.html"))
 
