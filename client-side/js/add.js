@@ -13,7 +13,7 @@
             
             return employee.ID===enteredID
         })
-        //find method returns undefined if there's no match is found
+        //find method returns undefined if there's no match 
         //undefined value is same as false 
         // console.log(exisitingData);
 
