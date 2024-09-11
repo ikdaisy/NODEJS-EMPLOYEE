@@ -26,10 +26,16 @@
             errorMessageElement.style.fontSize = 12+"px";
 
            document.getElementById("add-btn").disabled=true;
+           document.getElementById("add-btn").style.backgroundColor="rgb(136,244,180)";
+
+
 
           } else {
             errorMessageElement.textContent = "";
             errorMessageElement.style.display = "none";
+           document.getElementById("add-btn").style.backgroundColor="#037961";
+           document.getElementById("add-btn").disabled=false;
+
           }
             
     });
